@@ -21,6 +21,7 @@ typedef _tagPoint* PPOINT;
 typedef struct _tagPlayer {
 	_tagPoint tPos;
 	bool bWallPush;
+	bool bPushOnOff;
 	bool bTransparency;
 	int iBombPower;
 }PLAYER, *PPLAYER;
@@ -116,24 +117,15 @@ void Output(char Maze[21][21], PPLAYER tPlayer) {
 }
 
 bool AddItem(char cItemType, PPLAYER pPlayer) {
-	if (cItemType == '5'
-		) {
+	if (cItemType == '5') {
 		if (pPlayer->iBombPower < 5)
 			++pPlayer->iBombPower;
 		return true;
-	}
-
-	if (
-		cItemType == '6'
-
-		) {
+	}else if(cItemType == '6') {
 		pPlayer->bWallPush = true;
+		pPlayer->bPushOnOff = true;
 		return true;
-	}
-
-	if (
-		cItemType == '7'
-		) {
+	}else if (cItemType == '7') {
 		pPlayer->bTransparency = true;
 		return true;
 	}
@@ -397,7 +389,7 @@ int main()
 			break;
 		}
 
-		cout << "t : 폭탄 설치 u : 터트리기 i : 벽밀기 " << endl;
+		cout << "t : 폭탄 설치 u : 터트리기 i : 벽밀기 ON/OFF " << endl;
 		cout << "w : 위 s : 아래 a : 왼쪽 d : 오른쪽 q : 종료 : ";
 		char clnput = _getch();
 
@@ -407,7 +399,10 @@ int main()
 		else if (clnput == 'T' || clnput == 't') {
 			CreateBomb(strMaze, &tPlayer, tBombPos, &iBombCount);
 		}
-		if (clnput == 'u' || clnput == 'U') {
+		else if (clnput == 'u' || clnput == 'U') {
+			Fire(strMaze, &tPlayer, tBombPos, &iBombCount);
+		}
+		else if (clnput == 'i' || clnput == 'I') {
 			Fire(strMaze, &tPlayer, tBombPos, &iBombCount);
 		}
 
