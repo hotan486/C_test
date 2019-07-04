@@ -102,17 +102,17 @@ void Output(char Maze[21][21], PPLAYER tPlayer) {
 	cout << "폭판파워 : " << tPlayer->iBombPower << endl;
 	cout << "벽통과 : ";
 	if (tPlayer->bTransparency) {
-		cout << "ON\t";
-	}
-	else {
-		cout << "OFF\t";
-	}
-	cout << "벽밀기 : ";
-	if (tPlayer->bWallPush) {
 		cout << "ON";
 	}
 	else {
 		cout << "OFF";
+	}
+	cout << "벽밀기 : ";
+	if (tPlayer->bWallPush) {
+		cout << "가능";
+	}
+	else {
+		cout << "불가능";
 	}
 }
 
@@ -139,6 +139,31 @@ void MoveUp(char Maze[21][21], PPLAYER tPlayer) {
 			Maze[tPlayer->tPos.x - 1][tPlayer->tPos.y] != '4') {
 			--tPlayer->tPos.x;
 		}
+		else if (tPlayer->bWallPush && Maze[tPlayer->tPos.x - 1][tPlayer->tPos.y] == '0') {
+			if (tPlayer->bPushOnOff) {
+				if (tPlayer->tPos.x - 2 >= 0) {
+					if (Maze[tPlayer->tPos.x - 2][tPlayer->tPos.y] == '0') {
+						if (tPlayer->bTransparency) {
+							--tPlayer->tPos.x;
+						}
+					}
+					else if(Maze[tPlayer->tPos.x - 2][tPlayer->tPos.y] == '1'){
+						Maze[tPlayer->tPos.x - 2][tPlayer->tPos.y] = '0';
+						Maze[tPlayer->tPos.x - 1][tPlayer->tPos.y] = '1';
+						--tPlayer->tPos.x;
+					}
+				}
+				else if (tPlayer->bTransparency) {
+					--tPlayer->tPos.x;
+				}
+
+			}
+
+			else if (tPlayer->bTransparency) {
+				--tPlayer->tPos.x;
+			} 
+
+		}
 		else if (tPlayer->bTransparency) {
 			--tPlayer->tPos.x;
 		}
@@ -158,6 +183,31 @@ void MoveDown(char Maze[21][21], PPLAYER tPlayer) {
 			Maze[tPlayer->tPos.x + 1][tPlayer->tPos.y] != '4') {
 			++tPlayer->tPos.x;
 		}
+		else if (tPlayer->bWallPush && Maze[tPlayer->tPos.x + 1][tPlayer->tPos.y] == '0') {
+			if (tPlayer->bPushOnOff) {
+				if (tPlayer->tPos.x + 2 <20) {
+					if (Maze[tPlayer->tPos.x + 2][tPlayer->tPos.y] == '0') {
+						if (tPlayer->bTransparency) {
+							++tPlayer->tPos.x;
+						}
+					}
+					else if (Maze[tPlayer->tPos.x + 2][tPlayer->tPos.y] == '1') {
+						Maze[tPlayer->tPos.x + 2][tPlayer->tPos.y] = '0';
+						Maze[tPlayer->tPos.x + 1][tPlayer->tPos.y] = '1';
+						++tPlayer->tPos.x;
+					}
+				}
+				else if (tPlayer->bTransparency) {
+					++tPlayer->tPos.x;
+				}
+
+			}
+
+			else if (tPlayer->bTransparency) {
+				++tPlayer->tPos.x;
+			}
+
+		}
 		else if (tPlayer->bTransparency) {
 			++tPlayer->tPos.x;
 		}
@@ -173,6 +223,31 @@ void MoveLeft(char Maze[21][21], PPLAYER tPlayer) {
 		if (Maze[tPlayer->tPos.x][tPlayer->tPos.y - 1] != '0' &&
 			Maze[tPlayer->tPos.x][tPlayer->tPos.y - 1] != '4') {
 			--tPlayer->tPos.y;
+		}
+		else if (tPlayer->bWallPush && Maze[tPlayer->tPos.x][tPlayer->tPos.y-1] == '0') {
+			if (tPlayer->bPushOnOff) {
+				if (tPlayer->tPos.y - 2 <20) {
+					if (Maze[tPlayer->tPos.x ][tPlayer->tPos.y-2] == '0') {
+						if (tPlayer->bTransparency) {
+							--tPlayer->tPos.y;
+						}
+					}
+					else if (Maze[tPlayer->tPos.x][tPlayer->tPos.y-2] == '1') {
+						Maze[tPlayer->tPos.x][tPlayer->tPos.y-2] = '0';
+						Maze[tPlayer->tPos.x][tPlayer->tPos.y-1] = '1';
+						--tPlayer->tPos.y;
+					}
+				}
+				else if (tPlayer->bTransparency) {
+					--tPlayer->tPos.y;
+				}
+
+			}
+
+			else if (tPlayer->bTransparency) {
+				--tPlayer->tPos.y;
+			}
+
 		}
 		else if (tPlayer->bTransparency) {
 			--tPlayer->tPos.y;
@@ -190,6 +265,31 @@ void MoveRight(char Maze[21][21], PPLAYER tPlayer) {
 		if (Maze[tPlayer->tPos.x][tPlayer->tPos.y + 1] != '0' &&
 			Maze[tPlayer->tPos.x][tPlayer->tPos.y + 1] != '4') {
 			++tPlayer->tPos.y;
+		}
+		else if (tPlayer->bWallPush && Maze[tPlayer->tPos.x][tPlayer->tPos.y + 1] == '0') {
+			if (tPlayer->bPushOnOff) {
+				if (tPlayer->tPos.y + 2 < 20) {
+					if (Maze[tPlayer->tPos.x][tPlayer->tPos.y + 2] == '0') {
+						if (tPlayer->bTransparency) {
+							++tPlayer->tPos.y;
+						}
+					}
+					else if (Maze[tPlayer->tPos.x][tPlayer->tPos.y + 2] == '1') {
+						Maze[tPlayer->tPos.x][tPlayer->tPos.y + 2] = '0';
+						Maze[tPlayer->tPos.x][tPlayer->tPos.y + 1] = '1';
+						++tPlayer->tPos.y;
+					}
+				}
+				else if (tPlayer->bTransparency) {
+					++tPlayer->tPos.y;
+				}
+
+			}
+
+			else if (tPlayer->bTransparency) {
+				++tPlayer->tPos.y;
+			}
+
 		}
 		else if (tPlayer->bTransparency) {
 			++tPlayer->tPos.y;
@@ -270,12 +370,12 @@ void Fire(char Maze[21][21], PPLAYER pPlayer, PPOINT pBombArr, int* pBombCount) 
 			if (pBombArr[i].x - j >= 0) {
 				if (Maze[pBombArr[i].x - j][pBombArr[i].y] == '0') {
 
-					if (rand() % 100 < 20) {
+					if (rand() % 100 < 30) {
 						int iPercent = rand() % 100;
-						if (iPercent < 70) {
+						if (iPercent < 80) {
 							Maze[pBombArr[i].x - j][pBombArr[i].y] = '5';
 						}
-						else if (iPercent < 80) {
+						else if (iPercent < 90) {
 							Maze[pBombArr[i].x - j][pBombArr[i].y] = '6';
 						}else
 							Maze[pBombArr[i].x - j][pBombArr[i].y] = '7';
@@ -389,7 +489,7 @@ int main()
 			break;
 		}
 
-		cout << "t : 폭탄 설치 u : 터트리기 i : 벽밀기 ON/OFF " << endl;
+		//cout << "t : 폭탄 설치 u : 터트리기 i : 벽밀기 ON/OFF " << endl;
 		cout << "w : 위 s : 아래 a : 왼쪽 d : 오른쪽 q : 종료 : ";
 		char clnput = _getch();
 
@@ -403,7 +503,9 @@ int main()
 			Fire(strMaze, &tPlayer, tBombPos, &iBombCount);
 		}
 		else if (clnput == 'i' || clnput == 'I') {
-			Fire(strMaze, &tPlayer, tBombPos, &iBombCount);
+			if (tPlayer.bWallPush) {
+				tPlayer.bPushOnOff = !tPlayer.bPushOnOff;
+			}
 		}
 
 		MovePlayer(strMaze, &tPlayer, clnput);
