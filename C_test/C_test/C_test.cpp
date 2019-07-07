@@ -459,6 +459,7 @@ void Fire(char Maze[21][21], PPLAYER pPlayer, PPOINT pBombArr, int* pBombCount) 
 	*pBombCount = 0;
 }
 
+/*
 int main()
 {
 	srand((unsigned int)time(0));
@@ -516,3 +517,5 @@ int main()
 
 	return 0;
 }
+
+*/
