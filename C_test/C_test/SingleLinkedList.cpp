@@ -157,6 +157,9 @@ void Output(PLIST pList) {
 
 	PNODE pNode = pList->pBegin;
 
+
+	//데이터가 생성 되면 무조건 노드는 널이 아니고 
+	//마지막 데이터는 널이기에 마지막 까지 돈다 
 	while (pNode != NULL)
 	{
 		OutputStudent(&pNode->tStudent);
@@ -200,9 +203,9 @@ int main()
 			break;
 		}
 
-		ClearList(&tList);
+		
 	}
 
-
+	ClearList(&tList);
 	return 0;
 }
